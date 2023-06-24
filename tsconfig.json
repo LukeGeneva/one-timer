@@ -13,7 +13,7 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./app/*", "./use-cases/*", "./entities/*"]
+      "~/*": ["./app/*", "./use-cases/*", "./entities/*", "./adapters/*"]
     },
     "noEmit": true
   }
