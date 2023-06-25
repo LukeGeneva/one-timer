@@ -5,6 +5,8 @@ export class RetrieveOneTimeSecret {
 
   execute = async (secretId: string) => {
     const secret = await this.secretRepository.findById(secretId);
-    return secret.decrypt();
+    const message = secret.decrypt();
+    await this.secretRepository.delete(secretId);
+    return message;
   };
 }

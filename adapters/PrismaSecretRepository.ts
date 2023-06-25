@@ -38,4 +38,8 @@ export class PrismaSecretRepository implements SecretRepository {
       key: this.encryptionKey,
     });
   };
+
+  delete = async (secretId: string) => {
+    await this.prismaClient.secret.delete({ where: { id: secretId } });
+  };
 }

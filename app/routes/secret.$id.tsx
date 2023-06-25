@@ -1,6 +1,10 @@
-import type { LoaderFunction } from '@remix-run/node';
+import type { HeadersFunction, LoaderFunction } from '@remix-run/node';
 import { retrieveOneTimeSecret } from '../compositionRoot.server';
 import { useLoaderData } from '@remix-run/react';
+
+export const headers: HeadersFunction = () => {
+  return { 'cache-control': 'no-cache' };
+};
 
 export const loader: LoaderFunction = async ({ params }) => {
   const id = params.id;

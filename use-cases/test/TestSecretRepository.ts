@@ -17,4 +17,8 @@ export class TestSecretRepository implements SecretRepository {
     if (!secret) throw new Error(`No secret found with ID ${secretId}`);
     return secret;
   };
+
+  delete = async (secretId: string) => {
+    await this._secrets.delete(secretId);
+  };
 }
