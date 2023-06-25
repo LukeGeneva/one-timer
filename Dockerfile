@@ -1,45 +1,61 @@
-# syntax = docker/dockerfile:1
+# base node image
+FROM node:20-bookworm-slim as base
 
-# Adjust NODE_VERSION as desired
-ARG NODE_VERSION=16.16.0
-FROM node:${NODE_VERSION}-slim as base
+# Install openssl for Prisma
+RUN apt-get update && apt-get install -y openssl
 
-LABEL fly_launch_runtime="Remix"
+# Install all node_modules, including dev dependencies
+FROM base as deps
 
-# Remix app lives here
+RUN mkdir /app
 WORKDIR /app
 
-# Set production environment
-ENV NODE_ENV=production
+ADD package.json package-lock.json ./
+RUN npm install --production=false
 
+# Setup production node_modules
+FROM base as production-deps
 
-# Throw-away build stage to reduce size of final image
+RUN mkdir /app
+WORKDIR /app
+
+COPY --from=deps /app/node_modules /app/node_modules
+ADD package.json package-lock.json ./
+RUN npm prune --production
+
+# Build the app
 FROM base as build
 
-# Install packages needed to build node modules
-RUN apt-get update -qq && \
-    apt-get install -y python pkg-config build-essential 
+ENV NODE_ENV=production
 
-# Install node modules
-COPY --link package-lock.json package.json ./
-RUN npm ci --include=dev
+RUN mkdir /app
+WORKDIR /app
 
-# Copy application code
-COPY --link . .
+COPY --from=deps /app/node_modules /app/node_modules
 
-# Build application
+# If we're using Prisma, uncomment to cache the prisma schema
+ADD prisma .
+RUN npx prisma generate
+
+ADD . .
 RUN npm run build
 
-# Remove development dependencies
-RUN npm prune --omit=dev
-
-
-# Final stage for app image
+# Finally, build the production image with minimal footprint
 FROM base
 
-# Copy built application
-COPY --from=build /app /app
+ENV NODE_ENV=production
 
-# Start the server by default, this can be overwritten at runtime
-EXPOSE 3000
-CMD [ "npm", "run", "start" ]
+RUN mkdir /app
+WORKDIR /app
+
+COPY --from=production-deps /app/node_modules /app/node_modules
+
+# Uncomment if using Prisma
+COPY --from=build /app/node_modules/.prisma /app/node_modules/.prisma
+
+COPY --from=build /app/build /app/build
+COPY --from=build /app/public /app/public
+ADD . .
+
+CMD ["./start_with_migrations.sh"]
+
