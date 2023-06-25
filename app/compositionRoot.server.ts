@@ -1,3 +1,4 @@
+import { RetrieveOneTimeSecret } from '~/RetrieveOneTimeSecret';
 import { PrismaSecretRepository } from '../adapters/PrismaSecretRepository';
 import { CreateOneTimeSecret } from '../use-cases/CreateOneTimeSecret';
 import { prismaClient } from './db.server';
@@ -7,7 +8,11 @@ const secretRepository = new PrismaSecretRepository(
   prismaClient,
   ENCRYPTION_KEY
 );
+
 export const createOneTimeSecret = new CreateOneTimeSecret(
   secretRepository,
   ENCRYPTION_KEY
+);
+export const retrieveOneTimeSecret = new RetrieveOneTimeSecret(
+  secretRepository
 );
