@@ -1,12 +1,12 @@
-import type { HeadersFunction, LoaderFunction } from '@remix-run/node';
+import type { ActionFunction, HeadersFunction } from '@remix-run/node';
 import { retrieveOneTimeSecret } from '../compositionRoot.server';
-import { useLoaderData } from '@remix-run/react';
+import { useActionData } from '@remix-run/react';
 
 export const headers: HeadersFunction = () => {
   return { 'cache-control': 'no-cache' };
 };
 
-export const loader: LoaderFunction = async ({ params }) => {
+export const action: ActionFunction = async ({ params }) => {
   const id = params.id;
   if (typeof id !== 'string') throw new Error('Expected ID.');
   const message = await retrieveOneTimeSecret.execute(id);
@@ -14,7 +14,17 @@ export const loader: LoaderFunction = async ({ params }) => {
 };
 
 export default function SecretId() {
-  const { message } = useLoaderData();
+  const data = useActionData();
 
-  return <div>{message}</div>;
+  return (
+    <div>
+      {data ? (
+        <p>{data.message}</p>
+      ) : (
+        <form method="post">
+          <button type="submit">View Secret</button>
+        </form>
+      )}
+    </div>
+  );
 }
