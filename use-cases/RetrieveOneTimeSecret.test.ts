@@ -17,3 +17,10 @@ test('that secret is retrieved', async () => {
   const secretText = await retrieveSecret.execute(secretId);
   expect(secretText).toBe('test');
 });
+
+test('that secret is deleted', async () => {
+  const createSecret = new CreateOneTimeSecret(secretRepository, KEY);
+  const secretId = await createSecret.execute('test');
+  await retrieveSecret.execute(secretId);
+  expect(retrieveSecret.execute(secretId)).rejects.toThrow();
+});
