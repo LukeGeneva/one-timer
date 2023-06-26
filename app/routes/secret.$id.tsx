@@ -13,6 +13,10 @@ export const action: ActionFunction = async ({ params }) => {
   return { message };
 };
 
+export function ErrorBoundary() {
+  return <p>This secret does not exist. It may have already been viewed.</p>;
+}
+
 export default function SecretId() {
   const data = useActionData();
 
