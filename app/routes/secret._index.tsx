@@ -1,20 +1,21 @@
 import type { ActionFunction } from '@remix-run/node';
-import { createOneTimeSecret } from '../compositionRoot.server';
 import { useActionData } from '@remix-run/react';
+import { createOneTimeSecret } from '../compositionRoot.server';
+import { BASE_URL } from '../env';
 
 export const action: ActionFunction = async ({ request }) => {
   const data = await request.formData();
   const message = data.get('message');
   if (typeof message !== 'string') throw new Error('Expected message.');
   const secretId = await createOneTimeSecret.execute(message);
-  return secretId;
+  return { BASE_URL, secretId };
 };
 
 export default function Secret() {
-  const secretId = useActionData();
+  const data = useActionData();
 
-  return secretId ? (
-    <p>{`http://localhost:3000/secret/${secretId}`}</p>
+  return data?.secretId ? (
+    <p>{`${data.BASE_URL}/secret/${data.secretId}`}</p>
   ) : (
     <form method="post">
       <textarea name="message"></textarea>
