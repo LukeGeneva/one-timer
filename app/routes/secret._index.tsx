@@ -25,31 +25,61 @@ export default function Secret() {
 
   return (
     <div className="mx-auto w-3/4 p-4">
+      <h1 className="text-primary text-center text-2xl pb-4">
+        Create a "one-timer" link
+      </h1>
       {data?.secretId ? (
-        <>
-          <input
-            ref={textRef}
-            type="text"
-            disabled
-            defaultValue={`${data.BASE_URL}/secret/${data.secretId}`}
-          />
-          <button type="button" onClick={onCopyClick}>
-            Copy
-          </button>
-        </>
+        <div className="flex flex-col gap-4">
+          <div className="flex gap-2">
+            <input
+              className="p-2 bg-white rounded flex-1"
+              ref={textRef}
+              type="text"
+              disabled
+              defaultValue={`${data.BASE_URL}/secret/${data.secretId}`}
+            />
+            <button
+              className="bg-secondary text-white p-2 rounded"
+              type="button"
+              onClick={onCopyClick}
+            >
+              Copy
+            </button>
+          </div>
+          <p className="text-primary">
+            <ul>
+              <li>Here is the link to your secret.</li>
+              <li>Remember, this can only be accessed once.</li>
+              <li>After the secret is view, it will be deleted.</li>
+            </ul>
+          </p>
+        </div>
       ) : (
-        <form className="flex flex-col gap-2" method="post">
-          <textarea
-            className="p-2 resize-none rounded"
-            name="message"
-          ></textarea>
-          <button
-            className="bg-secondary text-primary p-2 rounded"
-            type="submit"
-          >
-            Create
-          </button>
-        </form>
+        <div className="flex flex-col gap-4">
+          <form className="flex flex-col gap-2" method="post">
+            <textarea
+              className="p-2 resize-none rounded"
+              name="message"
+              rows={15}
+              placeholder="Place your secret here"
+            ></textarea>
+            <button
+              className="bg-secondary text-primary p-2 rounded"
+              type="submit"
+            >
+              Create
+            </button>
+          </form>
+          <p className="text-primary">
+            <ul>
+              <li>After creating your secret, we'll give you a link.</li>
+              <li>
+                The link can only be accessed once. Then it will be deleted
+                forever.
+              </li>
+            </ul>
+          </p>
+        </div>
       )}
     </div>
   );
