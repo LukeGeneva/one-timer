@@ -49,7 +49,11 @@ export default function SecretId() {
               disabled
               defaultValue={data.message}
             ></textarea>
-            <button type="button" onClick={onCopyClick}>
+            <button
+              className="bg-secondary text-primary rounded p-2"
+              type="button"
+              onClick={onCopyClick}
+            >
               Copy
             </button>
           </div>
