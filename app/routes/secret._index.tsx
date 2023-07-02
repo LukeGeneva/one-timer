@@ -50,7 +50,7 @@ export default function Secret() {
             <ul>
               <li>Here is the link to your secret.</li>
               <li>Remember, this can only be accessed once.</li>
-              <li>After the secret is view, it will be deleted.</li>
+              <li>After the secret is viewed, it will be deleted.</li>
             </ul>
           </p>
         </div>
