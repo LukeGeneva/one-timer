@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.bg-primary {
+  background: #024059;
+}
+
+.bg-secondary {
+  background: #04bf8a;
+}
+
+.text-primary {
+  @apply text-white;
+}
