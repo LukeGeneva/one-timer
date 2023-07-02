@@ -15,7 +15,16 @@ export const action: ActionFunction = async ({ params }) => {
 };
 
 export function ErrorBoundary() {
-  return <p>This secret does not exist. It may have already been viewed.</p>;
+  return (
+    <div className="flex flex-col gap-2 items-center">
+      <p className="text-primary p-4 text-center">
+        This secret does not exist. It may have already been viewed.
+      </p>
+      <a className="text-link" href="/">
+        Back home
+      </a>
+    </div>
+  );
 }
 
 export default function SecretId() {
@@ -30,18 +39,29 @@ export default function SecretId() {
   };
 
   return (
-    <div>
+    <div className="mx-auto w-3/4 p-4">
       {data ? (
-        <>
-          <textarea
-            ref={textRef}
-            disabled
-            defaultValue={data.message}
-          ></textarea>
-          <button type="button" onClick={onCopyClick}>
-            Copy
-          </button>
-        </>
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-2">
+            <textarea
+              className="p-2 bg-white rounded flex-1"
+              ref={textRef}
+              disabled
+              defaultValue={data.message}
+            ></textarea>
+            <button type="button" onClick={onCopyClick}>
+              Copy
+            </button>
+          </div>
+          <p className="text-primary">
+            <ul>
+              <li>
+                This secret is now deleted. Once you close this page, it will be
+                gone.
+              </li>
+            </ul>
+          </p>
+        </div>
       ) : (
         <form className="flex justify-center p-4" method="post">
           <button

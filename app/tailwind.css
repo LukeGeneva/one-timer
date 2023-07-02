@@ -2,14 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+ * Color palette
+ *
+ * #024059
+ * #026873
+ * #04bf8a
+ * #025940
+ * #03a64a
+ */
+
 .bg-primary {
-  background: #024059;
+    background: #024059;
 }
 
 .bg-secondary {
-  background: #04bf8a;
+    background: #04bf8a;
 }
 
 .text-primary {
-  @apply text-white;
+    @apply text-white;
+}
+
+.text-link {
+    color: #04bf8a;
+}
+
+.text-link:hover {
+    color: #03a64a;
 }
