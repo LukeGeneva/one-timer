@@ -43,8 +43,13 @@ export default function SecretId() {
           </button>
         </>
       ) : (
-        <form method="post">
-          <button type="submit">View Secret</button>
+        <form className="flex justify-center p-4" method="post">
+          <button
+            className="bg-secondary text-primary rounded p-4"
+            type="submit"
+          >
+            View Secret
+          </button>
         </form>
       )}
     </div>
