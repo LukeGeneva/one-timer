@@ -24,7 +24,7 @@ export default function Secret() {
   };
 
   return (
-    <div className="mx-auto w-3/4 p-4">
+    <div className="mx-auto md:w-3/4 p-4">
       <h1 className="text-primary text-center text-2xl pb-4">
         Create a "one-timer" link
       </h1>
@@ -47,7 +47,7 @@ export default function Secret() {
             </button>
           </div>
           <p className="text-primary">
-            <ul>
+            <ul className="flex flex-col gap-4 text-center md:text-left">
               <li>Here is the link to your secret.</li>
               <li>Remember, this can only be accessed once.</li>
               <li>After the secret is viewed, it will be deleted.</li>
@@ -71,7 +71,7 @@ export default function Secret() {
             </button>
           </form>
           <p className="text-primary">
-            <ul>
+            <ul className="flex flex-col gap-4 text-center md:text-left">
               <li>After creating your secret, we'll give you a link.</li>
               <li>
                 The link can only be accessed once. Then it will be deleted

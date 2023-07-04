@@ -39,7 +39,7 @@ export default function SecretId() {
   };
 
   return (
-    <div className="mx-auto w-3/4 p-4">
+    <div className="mx-auto md:w-3/4 p-4">
       {data ? (
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
@@ -58,7 +58,7 @@ export default function SecretId() {
             </button>
           </div>
           <p className="text-primary">
-            <ul>
+            <ul className="flex flex-col gap-4 text-center md:text-left">
               <li>
                 This secret is now deleted. Once you close this page, it will be
                 gone.
