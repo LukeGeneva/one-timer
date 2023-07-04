@@ -62,6 +62,7 @@ export default function Secret() {
               name="message"
               rows={15}
               placeholder="Place your secret here"
+              maxLength={5000}
             ></textarea>
             <button
               className="bg-secondary text-primary p-2 rounded"
