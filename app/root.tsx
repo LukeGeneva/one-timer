@@ -1,4 +1,4 @@
-import type { LinksFunction } from '@remix-run/node';
+import type { V2_MetaFunction, LinksFunction } from '@remix-run/node';
 import {
   Links,
   LiveReload,
@@ -12,6 +12,16 @@ import stylesheet from '~/tailwind.css';
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: stylesheet },
 ];
+
+export const meta: V2_MetaFunction = () => {
+  return [
+    { title: 'One Timer' },
+    {
+      name: 'description',
+      content: 'Create one-time links for sensitive information',
+    },
+  ];
+};
 
 export default function App() {
   return (
