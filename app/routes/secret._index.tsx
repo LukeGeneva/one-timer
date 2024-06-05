@@ -1,6 +1,6 @@
-import type { ActionFunction } from '@remix-run/node';
-import { useActionData } from '@remix-run/react';
-import { createOneTimeSecret } from '../compositionRoot.server';
+import type { ActionFunction, LoaderFunction } from '@remix-run/node';
+import { useActionData, useLoaderData } from '@remix-run/react';
+import { createOneTimeSecret, getSecretCount } from '../compositionRoot.server';
 import { BASE_URL } from '../env';
 import { useRef } from 'react';
 
@@ -12,8 +12,14 @@ export const action: ActionFunction = async ({ request }) => {
   return { BASE_URL, secretId };
 };
 
+export const loader: LoaderFunction = async () => {
+  const secretCount = await getSecretCount.execute();
+  return { secretCount };
+};
+
 export default function Secret() {
   const data = useActionData();
+  const { secretCount } = useLoaderData();
   const textRef = useRef<HTMLInputElement>(null);
 
   const onCopyClick = () => {
@@ -79,6 +85,9 @@ export default function Secret() {
                 forever.
               </li>
             </ul>
+          </p>
+          <p className="text-primary">
+            {secretCount} one-timers created so far!
           </p>
         </div>
       )}

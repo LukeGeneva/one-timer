@@ -17,3 +17,7 @@ model Secret {
   initializationVector String
 }
 
+model KeyValue {
+  key String @id
+  value String 
+}

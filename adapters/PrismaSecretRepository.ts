@@ -2,6 +2,8 @@ import type { PrismaClient } from '@prisma/client';
 import { Secret } from '../entities/Secret';
 import type { SecretRepository } from '../entities/SecretRepository';
 
+const SECRET_COUNT_KEY = 'Secret Count';
+
 export class PrismaSecretRepository implements SecretRepository {
   constructor(
     private prismaClient: PrismaClient,
@@ -25,6 +27,29 @@ export class PrismaSecretRepository implements SecretRepository {
       where: { id: secret.id },
     });
   };
+
+  async getSecretCount() {
+    const record = await this.prismaClient.keyValue.findUnique({
+      where: { key: SECRET_COUNT_KEY },
+    });
+    if (!record) return 0;
+    const count = Number.parseInt(record.value) || 0;
+    return count;
+  }
+
+  async saveSecretCount(count: number) {
+    await this.prismaClient.keyValue.upsert({
+      create: {
+        key: SECRET_COUNT_KEY,
+        value: count.toString(),
+      },
+      update: {
+        key: SECRET_COUNT_KEY,
+        value: count.toString(),
+      },
+      where: { key: SECRET_COUNT_KEY },
+    });
+  }
 
   findById = async (secretId: string) => {
     const rawSecret = await this.prismaClient.secret.findUniqueOrThrow({

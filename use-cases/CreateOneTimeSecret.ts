@@ -11,6 +11,8 @@ export class CreateOneTimeSecret {
     const secret = new Secret(this.encryptionKey);
     secret.encrypt(text);
     await this.secretRepository.save(secret);
+    const secretCount = await this.secretRepository.getSecretCount();
+    await this.secretRepository.saveSecretCount(secretCount + 1);
     return secret.id;
   };
 }

@@ -3,6 +3,7 @@ import type { SecretRepository } from '../../entities/SecretRepository';
 
 export class TestSecretRepository implements SecretRepository {
   private _secrets: Map<string, Secret>;
+  private _secretCount: number = 0;
 
   constructor() {
     this._secrets = new Map();
@@ -19,6 +20,14 @@ export class TestSecretRepository implements SecretRepository {
   };
 
   delete = async (secretId: string) => {
-    await this._secrets.delete(secretId);
+    this._secrets.delete(secretId);
   };
+
+  async getSecretCount() {
+    return this._secretCount;
+  }
+
+  async saveSecretCount(count: number) {
+    this._secretCount = count;
+  }
 }
