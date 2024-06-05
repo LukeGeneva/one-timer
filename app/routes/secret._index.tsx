@@ -2,7 +2,7 @@ import type { ActionFunction, LoaderFunction } from '@remix-run/node';
 import { useActionData, useLoaderData } from '@remix-run/react';
 import { createOneTimeSecret, getSecretCount } from '../compositionRoot.server';
 import { BASE_URL } from '../env';
-import { useRef } from 'react';
+import React, { useRef } from 'react';
 
 export const action: ActionFunction = async ({ request }) => {
   const data = await request.formData();
@@ -21,12 +21,14 @@ export default function Secret() {
   const data = useActionData();
   const { secretCount } = useLoaderData();
   const textRef = useRef<HTMLInputElement>(null);
+  const [isTextCopied, setIsTextCopied] = React.useState(false);
 
   const onCopyClick = () => {
     if (!textRef.current) return;
     textRef.current.select();
     textRef.current.setSelectionRange(0, 99999);
     navigator.clipboard.writeText(textRef.current.value);
+    setIsTextCopied(true);
   };
 
   return (
@@ -49,7 +51,7 @@ export default function Secret() {
               type="button"
               onClick={onCopyClick}
             >
-              Copy
+              {isTextCopied ? 'Copied!' : 'Copy'}
             </button>
           </div>
           <p className="text-primary">
