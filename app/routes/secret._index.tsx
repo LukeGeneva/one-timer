@@ -86,10 +86,8 @@ export default function Secret() {
                 The link can only be accessed once. Then it will be deleted
                 forever.
               </li>
+              <li>{secretCount} one-timers created so far!</li>
             </ul>
-          </p>
-          <p className="text-primary">
-            {secretCount} one-timers created so far!
           </p>
         </div>
       )}
