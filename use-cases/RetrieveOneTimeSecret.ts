@@ -1,4 +1,4 @@
-import type { SecretRepository } from '../entities/SecretRepository';
+import type { SecretRepository } from '../domain/SecretRepository';
 
 export class RetrieveOneTimeSecret {
   constructor(private secretRepository: SecretRepository) {}

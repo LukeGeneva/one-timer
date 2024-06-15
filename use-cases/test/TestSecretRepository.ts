@@ -1,5 +1,5 @@
-import type { Secret } from '../../entities/Secret';
-import type { SecretRepository } from '../../entities/SecretRepository';
+import type { Secret } from '../../domain/Secret';
+import type { SecretRepository } from '../../domain/SecretRepository';
 
 export class TestSecretRepository implements SecretRepository {
   private _secrets: Map<string, Secret>;

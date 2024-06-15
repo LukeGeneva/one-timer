@@ -1,6 +1,6 @@
 import type { PrismaClient } from '@prisma/client';
-import { Secret } from '../entities/Secret';
-import type { SecretRepository } from '../entities/SecretRepository';
+import { Secret } from '../domain/Secret';
+import type { SecretRepository } from '../domain/SecretRepository';
 
 const SECRET_COUNT_KEY = 'Secret Count';
 
