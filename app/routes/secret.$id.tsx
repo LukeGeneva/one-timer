@@ -50,6 +50,7 @@ export default function SecretId() {
               ref={textRef}
               disabled
               defaultValue={data.message}
+              rows={15}
             ></textarea>
             <button
               className="bg-secondary text-primary rounded p-2"
