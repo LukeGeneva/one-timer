@@ -1,3 +1,4 @@
+import { subMinutes } from 'date-fns';
 import { Secret } from './Secret';
 
 const KEY = 'abcdefghijklmnopqrstuvwxyz012345';
@@ -23,6 +24,15 @@ test('that hydrated secret works', () => {
     encryptedValue: secret.encryptedValue,
     createdAt: secret.createdAt,
     initializationVector: secret.initializationVector,
+    expiresAt: secret.expiresAt,
   });
   expect(hydratedSecret.decrypt()).toBe('test');
+});
+
+test('that secret can be expired', () => {
+  const secret = new Secret(KEY);
+  const fiveMinutesAgo = subMinutes(new Date(), 5);
+  secret.expires(fiveMinutesAgo);
+  expect(secret.expiresAt).toEqual(fiveMinutesAgo);
+  expect(secret.isExpired).toBe(true);
 });

@@ -17,12 +17,14 @@ export class PrismaSecretRepository implements SecretRepository {
         createdAt: secret.createdAt,
         encryptedValue: secret.encryptedValue,
         initializationVector: secret.initializationVector,
+        expiresAt: secret.expiresAt,
       },
       update: {
         id: secret.id,
         createdAt: secret.createdAt,
         encryptedValue: secret.encryptedValue,
         initializationVector: secret.initializationVector,
+        expiresAt: secret.expiresAt,
       },
       where: { id: secret.id },
     });
@@ -61,6 +63,7 @@ export class PrismaSecretRepository implements SecretRepository {
       encryptedValue: rawSecret.encryptedValue,
       initializationVector: rawSecret.initializationVector,
       key: this.encryptionKey,
+      expiresAt: rawSecret.expiresAt,
     });
   };
 

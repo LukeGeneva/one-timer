@@ -6,8 +6,8 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider = "sqlite"
+  url      = env("ONETIMER_DATABASE_URL")
 }
 
 model Secret {
@@ -15,6 +15,7 @@ model Secret {
   encryptedValue String
   createdAt DateTime
   initializationVector String
+  expiresAt DateTime
 }
 
 model KeyValue {

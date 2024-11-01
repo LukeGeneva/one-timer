@@ -7,6 +7,7 @@ type SecretHydrationProps = {
   encryptedValue: string;
   createdAt: Date;
   initializationVector: string;
+  expiresAt: Date;
 };
 
 export class Secret {
@@ -16,6 +17,7 @@ export class Secret {
   private _algorithm = 'aes-256-cbc';
   private _key: string;
   private _initializationVector: Buffer;
+  private _expiresAt: Date;
 
   get id() {
     return this._id;
@@ -33,6 +35,14 @@ export class Secret {
     return this._initializationVector.toString('hex');
   }
 
+  get expiresAt() {
+    return new Date(this._expiresAt);
+  }
+
+  get isExpired() {
+    return this._expiresAt < new Date();
+  }
+
   constructor(key: string) {
     if (key.length !== 32) throw new Error('Key must be 32 bytes.');
     this._id = uuid();
@@ -40,6 +50,7 @@ export class Secret {
     this._encryptedValue = '';
     this._key = key;
     this._initializationVector = crypto.randomBytes(16);
+    this._expiresAt = new Date();
   }
 
   encrypt = (value: string) => {
@@ -63,6 +74,10 @@ export class Secret {
     return Buffer.concat([decrypted, decipher.final()]).toString();
   };
 
+  expires(expirationDate: Date) {
+    this._expiresAt = expirationDate;
+  }
+
   static __hydrate = (props: SecretHydrationProps) => {
     const secret = new Secret(props.key);
     secret._id = props.id;
@@ -72,6 +87,7 @@ export class Secret {
       props.initializationVector,
       'hex'
     );
+    secret._expiresAt = props.expiresAt;
     return secret;
   };
 }
