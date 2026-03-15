@@ -57,7 +57,7 @@ export const ViewSecret: React.FC = () => {
               <p className="text-white/70">
                 This secret does not exist. It may have already been viewed.
               </p>
-              <a className="text-secondary text-sm font-semibold hover:opacity-80 transition-opacity" href="/">
+              <a className="text-link text-sm font-semibold transition-colors" href="/">
                 Back home
               </a>
             </div>
@@ -88,6 +88,9 @@ export const ViewSecret: React.FC = () => {
                   is now deleted. Once you close this page, it will be gone.
                 </li>
               </ul>
+              <a className="text-link text-sm font-semibold transition-colors" href="/">
+                Back home
+              </a>
             </div>
           ) : (
             <div className="flex flex-col gap-5 items-center">

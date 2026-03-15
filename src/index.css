@@ -1,15 +1,5 @@
 @import 'tailwindcss';
 
-/*
- * Color palette
- *
- * #024059
- * #026873
- * #04bf8a
- * #025940
- * #03a64a
- */
-
 .bg-primary {
   background: #024059;
 }
