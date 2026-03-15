@@ -1,3 +1,5 @@
+PRAGMA journal_mode=WAL;
+
 CREATE TABLE Secret (
   id TEXT NOT NULL PRIMARY KEY,
   encryptedValue TEXT NOT NULL,
