@@ -106,12 +106,13 @@ export const App: React.FC = () => {
               <ul className="flex flex-col gap-2 text-white/50 text-xs">
                 <li>We'll give you a one-time link to share.</li>
                 <li>Once viewed, it's gone forever.</li>
-                {secretCount !== null && (
-                  <li className="text-secondary/70">
-                    {secretCount.toLocaleString()} one-timers created so far
-                  </li>
-                )}
               </ul>
+              {secretCount !== null && (
+                <p className="text-center text-white/40 text-sm">
+                  <span className="text-secondary font-bold text-lg">{secretCount.toLocaleString()}</span>{' '}
+                  secrets shared so far
+                </p>
+              )}
             </div>
           )}
         </div>

@@ -75,7 +75,17 @@ async function getSecret(req: BunRequest<'/api/secret/:id'>) {
   return Response.json({ value });
 }
 
+const GET_SECRET_COUNT = `
+SELECT value FROM KeyValue WHERE key = 'SECRET_COUNT';
+`;
+
+function getSecretCount() {
+  const row = db.query(GET_SECRET_COUNT).get() as { value: number } | null;
+  return Response.json({ count: row?.value ?? 0 });
+}
+
 export const api = {
   '/api/secret': { POST: createSecret },
   '/api/secret/:id': { GET: getSecret },
+  '/api/secret-count': { GET: getSecretCount },
 };
