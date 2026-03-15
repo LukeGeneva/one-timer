@@ -1,8 +1,19 @@
-node_modules
+.DS_Store
+/node_modules/
 
-/.cache
-/build
-/public/build
+# React Router
+/.react-router/
+/build/
+/dist/
+
 .env
 
-dev.db
+dev.sqlite
+dev.sqlite-shm
+dev.sqlite-wal
+
+/tmp
+
+deploy.sh
+
+.claude/
