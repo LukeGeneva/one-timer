@@ -1,6 +1,5 @@
 {
   "private": true,
-  "sideEffects": false,
   "scripts": {
     "dev": "bun --watch src/index.tsx",
     "build": "bun build --target bun --production --sourcemap --outdir dist ./src/index.tsx",

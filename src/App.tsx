@@ -109,7 +109,9 @@ export const App: React.FC = () => {
               </ul>
               {secretCount !== null && (
                 <p className="text-center text-white/40 text-sm">
-                  <span className="text-secondary font-bold text-lg">{secretCount.toLocaleString()}</span>{' '}
+                  <span className="text-secondary font-bold text-lg">
+                    {secretCount.toLocaleString()}
+                  </span>{' '}
                   secrets shared so far
                 </p>
               )}
